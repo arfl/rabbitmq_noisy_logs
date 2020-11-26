@@ -18,13 +18,24 @@ config :rabbitmq_noisy_logs, RabbitmqNoisyLogsWeb.Endpoint,
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id],
-  handle_otp_reports: false
+  metadata: [:request_id]
+
+config :logger, handle_otp_reports: true
 
 :logger.add_primary_filter(
   :ignore_rabbitmq_progress_reports,
   {&:logger_filters.domain/2, {:stop, :equal, [:progress]}}
 )
+
+# :logger.add_primary_filter(
+#   :ignore_rabbitmq_progress_reports,
+#   {&:logger_filters.domain/2, {:stop, :sub, [:otp, :sasl]}}
+# )
+
+# :logger.add_primary_filter(
+#   :ignore_rabbitmq_progress_reports,
+#   {&:logger_filters.progress/2, :stop}
+# )
 
 config :lager,
   error_logger_redirect: false,

@@ -20,7 +20,7 @@ defmodule RabbitmqNoisyLogs.MixProject do
   def application do
     [
       mod: {RabbitmqNoisyLogs.Application, []},
-      extra_applications: [:lager, :logger, :amqp, :runtime_tools]
+      extra_applications: [:sasl, :lager, :logger, :amqp, :runtime_tools]
     ]
   end
 
